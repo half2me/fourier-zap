@@ -27,7 +27,7 @@ describe('Fourier', () => {
           token: process.env.USERTOKEN,
           storefront: 'gb', // TODO: why do I need this, should be done automatically
         },
-        inputFields: {
+        inputData: {
           song: 'Circles',
           artist: 'Post Malone',
         },
