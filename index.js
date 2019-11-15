@@ -24,7 +24,9 @@ const App = {
   authentication,
 
   // beforeRequest & afterResponse are optional hooks into the provided HTTP client
-  beforeRequest: [],
+  beforeRequest: [
+    addAppleAuth,
+  ],
 
   afterResponse: [
     handleHTTPError,

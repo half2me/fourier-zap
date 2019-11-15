@@ -1,18 +1,28 @@
 const should = require('should');
 const zapier = require('zapier-platform-core');
+zapier.tools.env.inject();
 const App = require('../index');
 const appTester = zapier.createAppTester(App);
-
-zapier.tools.env.inject();
+const {token} = require('../music')
 
 describe('Fourier', () => {
-  it('should test something', done => {
-    const x = 1;
-    x.should.eql(1);
+  describe('library', () => {
+    it('should add song to library', done => {
+      const bundle = {
+        authData: {
+          token: process.env.USERTOKEN,
+          storefront: 'gb', // TODO: why do I need this, should be done automatically
+        },
+        inputFields: {
+          song: 'Circles',
+          artist: 'Post Malone',
+        },
+      };
 
-    // const bundle = { inputData: {} };
-    // const results = appTester(App.triggers.SOME_TRIGGER.operation.perform, bundle);
-    // results.length.should.eql(3);
-    done();
-  });
+      appTester(App.creates.library.operation.perform, bundle).then((r) => {
+        r.status.should.eql(202)
+        done();
+      }).catch(done);
+    })
+  })
 });

@@ -1,5 +1,11 @@
+const getStorefront = (z, bundle) => {
+    z.request('https://api.music.apple.com/v1/me/storefront').then(({json: {data}}) => ({
+        storefront: data[0].id
+    }))
+}
+
 module.exports = {
-    type: 'custom',
+    type: 'session',
     fields: [
         {
             key: 'token',
@@ -7,12 +13,18 @@ module.exports = {
             required: true,
             type: 'string',
         },
+        {
+            key: 'storefront',
+            label: 'Storefront',
+            required: false,
+            computed: true,
+        },
     ],
-    test: {
-        url: 'https://api.music.apple.com/v1/me/storefront'
+    test: getStorefront,
+    sessionConfig: {
+        perform: getStorefront
     },
     connectionLabel: (z, bundle) => {
-        z.console.log(bundle.authData)
         return "Apple Music";
     }
 };
