@@ -1,10 +1,13 @@
 const jwt = require('jsonwebtoken')
 
 const {
-    PRIVKEY: key,
+    PRIVKEY,
+    PRIVKEY64,
     TEAMID: issuer,
     KEYID: keyid,
 } = process.env
+
+const key = PRIVKEY || Buffer.from(PRIVKEY64, 'base64').toString()
 
 const tokenOptions = {
     expiresIn: '1h',

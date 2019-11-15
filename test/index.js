@@ -1,14 +1,11 @@
-/* globals describe, it */
+const should = require('should');
+const zapier = require('zapier-platform-core');
+const App = require('../index');
+const appTester = zapier.createAppTester(App);
 
-require('should');
+zapier.tools.env.inject();
 
-// Uncomment and use this to make test calls into your app:
-
-// const zapier = require('zapier-platform-core');
-// const App = require('../index');
-// const appTester = zapier.createAppTester(App);
-
-describe('My App', () => {
+describe('Fourier', () => {
   it('should test something', done => {
     const x = 1;
     x.should.eql(1);
