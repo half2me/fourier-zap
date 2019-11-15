@@ -1,8 +1,6 @@
-const getStorefront = (z, bundle) => {
-    z.request('https://api.music.apple.com/v1/me/storefront').then(({json: {data}}) => ({
-        storefront: data[0].id
-    }))
-}
+const getStorefront = (z, bundle) => z.request('https://api.music.apple.com/v1/me/storefront').then(({json: {data}}) => ({
+    storefront: data[0].id
+}));
 
 module.exports = {
     type: 'session',
