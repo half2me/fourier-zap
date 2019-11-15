@@ -20,6 +20,5 @@ module.exports = {
             {key: 'artist', label:'Artist', type: 'string', required: false}
         ],
         perform: addToLibrary,
-        sample: null,
     }
 };
