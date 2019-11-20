@@ -1,27 +1,24 @@
-const getStorefront = (z, bundle) => z.request('https://api.music.apple.com/v1/me/storefront').then(({json: {data}}) => ({
-    storefront: data[0].id
-}));
+const getStorefront = (z, bundle) => z.request('https://api.music.apple.com/v1/me/storefront');
+
+const getAccessToken = async (z, {cleanedRequest: {querystring: q}}) => ({
+    access_token: q.code,
+    storefront: q.sf,
+});
 
 module.exports = {
-    type: 'session',
-    fields: [
-        {
-            key: 'token',
-            label: 'Apple Music User Token',
-            required: true,
-            type: 'string',
-        },
-        {
-            key: 'storefront',
-            label: 'Storefront',
-            required: false,
-            computed: true,
-        },
-    ],
-    test: getStorefront,
-    sessionConfig: {
-        perform: getStorefront
+    type: 'oauth2',
+    authorizeUrl: {
+        url: process.env.OAUTH_URL,
+        params: {
+            client_id: '{{process.env.CLIENT_ID}}',
+            state: '{{bundle.inputData.state}}',
+            redirect_uri: '{{bundle.inputData.redirect_uri}}',
+            response_type: 'code'
+        }
     },
+    getAccessToken,
+    autoRefresh: false,
+    test: getStorefront,
     connectionLabel: (z, bundle) => {
         return "Apple Music";
     }

@@ -3,8 +3,8 @@ const libraryCreate = require('./creates/library')
 const {token} = require('./music')
 
 const addAppleAuth = (request, z, bundle) => {
-  request.headers['Authorization'] = `Bearer ${token()}`
-  request.headers['Music-User-Token'] = bundle.authData.token
+  request.headers.Authorization = `Bearer ${token()}`
+  request.headers['Music-User-Token'] = bundle.authData.access_token;
   return request;
 }
 
