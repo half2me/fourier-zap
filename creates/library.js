@@ -1,8 +1,9 @@
 const { findSong } = require('../music')
 
 const addToLibrary = async (z, bundle) => {
-    let {id} = await findSong(z, bundle.inputData.song, bundle.inputData.artist, bundle.authData.storefront);
-    return await z.request(`https://api.music.apple.com/v1/me/library?ids[songs]=${id}`, {method: 'POST'});
+    let song = await findSong(z, bundle.inputData.song, bundle.inputData.artist, bundle.authData.storefront);
+    await z.request(`https://api.music.apple.com/v1/me/library?ids[songs]=${song.id}`, {method: 'POST'});
+    return song;
 }
 
 module.exports = {
