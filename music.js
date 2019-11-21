@@ -18,25 +18,53 @@ const tokenOptions = {
 
 const token = () => jwt.sign({}, key, tokenOptions)
 
-const defaultPicker = ({song, artist}, results = []) => {
-    return results[0];
-}
-
-const findSong = (z, song, artist, sf, picker = defaultPicker) => {
+const findSong = async (z, song, artist, isrc, sf) => {
     let artistTerm = artist.replace(/,/g, '+')
     let term = `${artistTerm}+${song}`.replace(/ /g, '+')
-    return z.request(`https://api.music.apple.com/v1/catalog/${sf}/search?term=${term}`, {
+    const {json: {results}} = await z.request(`https://api.music.apple.com/v1/catalog/${sf}/search?term=${term}`, {
         params: {
             limit: 20,
             types: 'songs',
         }
-    }).then(({json: {results}}) => {
-        if (results.songs) {
-            return picker({song, artist}, results.songs.data);
-        } else {
-            throw new Error("No results")
+    });
+
+    if (!results.songs) {
+        throw new Error('No results');   
+    }
+
+    if (isrc) {
+        let isrcMatch = results.songs.data.find(s => isrc === s.attributes.isrc);
+        if (isrcMatch) {
+            return {
+                ...transformSongResult(isrcMatch),
+                match: {
+                    type: 'isrc',
+                    confidence: 1.00,
+                },
+            };
         }
-    })
+    }
+
+    return {
+        ...transformSongResult(results.songs.data[0]),
+        match: {
+            type: 'first item on search',
+            confidence: 0.8,
+        },
+    };
 }
+
+const transformSongResult = result => ({
+    id: result.id,
+    artist: result.attributes.artistName,
+    name: result.attributes.name,
+    album: result.attributes.albumName,
+    trackNumber: result.attributes.trackNumber,
+    composer: result.attributes.composerName,
+    url: result.attributes.url,
+    duration: result.attributes.durationInMillis,
+    releaseDate: result.attributes.releaseDate,
+    isrc: result.attributes.isrc,
+});
 
 module.exports = {token, findSong}

@@ -1,10 +1,10 @@
 const { findSong } = require('../music')
 const sample = require('../samples/library')
 
-const addToLibrary = async (z, bundle) => {
-    let song = await findSong(z, bundle.inputData.song, bundle.inputData.artist, bundle.authData.storefront);
-    await z.request(`https://api.music.apple.com/v1/me/library?ids[songs]=${song.id}`, {method: 'POST'});
-    return song;
+const addToLibrary = async (z, {inputData: {song, artist, isrc}, authData: {storefront: sf}}) => {
+    let result = await findSong(z, song, artist, isrc, sf);
+    await z.request(`https://api.music.apple.com/v1/me/library?ids[songs]=${result.id}`, {method: 'POST'});
+    return result;
 }
 
 module.exports = {
@@ -18,9 +18,11 @@ module.exports = {
 
     operation: {
         inputFields: [
-            {key: 'song', label:'Song', type: 'string', required: true},
-            {key: 'artist', label:'Artist', type: 'string', required: false}
+            {key: 'song', label: 'Song', type: 'string', required: true, helpText: "Name of the song"},
+            {key: 'artist', label: 'Artist', type: 'string', required: false, helpText: "Name of the artist or artists separated by commas"},
+            {key: 'isrc', label: 'ISRC', type: 'string', required: false, helpText: "International Standard Recording Code. If you specify this ISRC code, the matching algorithm has the highest accuracy."},
         ],
         perform: addToLibrary,
+        sample,
     }
 };
