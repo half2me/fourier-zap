@@ -1,4 +1,5 @@
 const { findSong } = require('../music')
+const sample = require('../samples/library')
 
 const addToLibrary = async (z, bundle) => {
     let song = await findSong(z, bundle.inputData.song, bundle.inputData.artist, bundle.authData.storefront);
