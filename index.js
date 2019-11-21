@@ -1,5 +1,6 @@
 const authentication = require('./auth')
 const libraryCreate = require('./creates/library')
+const Playlist = require('./resources/playlist')
 const {token} = require('./music')
 
 const addAppleAuth = (request, z, bundle) => {
@@ -33,7 +34,9 @@ const App = {
   ],
 
   // If you want to define optional resources to simplify creation of triggers, searches, creates - do that here!
-  resources: {},
+  resources: {
+    [Playlist.key]: Playlist
+  },
 
   // If you want your trigger to show up, you better include it here!
   triggers: {},

@@ -1,9 +1,9 @@
-const { findSong } = require('../music')
+const { findSong, baseUrl } = require('../music')
 const sample = require('../samples/library')
 
 const addToLibrary = async (z, {inputData: {song, artist, isrc}, authData: {storefront: sf}}) => {
     let result = await findSong(z, song, artist, isrc, sf);
-    await z.request(`https://api.music.apple.com/v1/me/library?ids[songs]=${result.id}`, {method: 'POST'});
+    await z.request(`${baseUrl}/me/library?ids[songs]=${result.id}`, {method: 'POST'});
     return result;
 }
 

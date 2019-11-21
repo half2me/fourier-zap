@@ -1,4 +1,6 @@
-const getStorefront = (z, bundle) => z.request('https://api.music.apple.com/v1/me/storefront');
+const { baseUrl } = require('../music')
+
+const getStorefront = (z, bundle) => z.request(`${baseUrl}/me/storefront`);
 
 const getAccessToken = async (z, {cleanedRequest: {querystring: q}}) => ({
   access_token: q.code,
