@@ -1,4 +1,5 @@
 const { baseUrl } = require('../music')
+const _ = require('lodash');
 
 const mapPlaylist = p => ({
   id: p.id,
@@ -13,7 +14,7 @@ const getPlaylist = (z, {inputData: {id}}) => z
 
 const listPlaylists = (z, bundle) => z
   .request(`${baseUrl}/me/library/playlists`, {params: {limit: 100}})
-  .then(({json: {data}}) => data.map(mapPlaylist));
+  .then(({json: {data}}) => _.sortBy(data.map(mapPlaylist), 'dateAdded', 'desc'));
 
 const createPlaylist = (z, {inputData: {name, description}}) => z
   .request(`${baseUrl}/me/library/playlists`, {method: 'POST', body: JSON.stringify({
