@@ -1,72 +1,72 @@
 const jwt = require('jsonwebtoken')
 
 const {
-    PRIVKEY,
-    PRIVKEY64,
-    TEAMID: issuer,
-    KEYID: keyid,
+  PRIVKEY,
+  PRIVKEY64,
+  TEAMID: issuer,
+  KEYID: keyid,
 } = process.env
 
 const key = PRIVKEY || Buffer.from(PRIVKEY64 || '', 'base64').toString()
 
 const tokenOptions = {
-    expiresIn: '1h',
-    algorithm: 'ES256',
-    issuer,
-    keyid,
+  expiresIn: '1h',
+  algorithm: 'ES256',
+  issuer,
+  keyid,
 }
 
 const token = () => jwt.sign({}, key, tokenOptions)
 
 const findSong = async (z, song, artist, isrc, sf) => {
-    let artistTerm = artist.replace(/,/g, '+')
-    let term = `${artistTerm}+${song}`.replace(/ /g, '+')
-    const {json: {results}} = await z.request(`${baseUrl}/catalog/${sf}/search?term=${term}`, {
-        params: {
-            limit: 20,
-            types: 'songs',
-        }
-    });
-
-    if (!results.songs) {
-        throw new Error('No results');   
+  let artistTerm = artist.replace(/,/g, '+')
+  let term = `${artistTerm}+${song}`.replace(/ /g, '+')
+  const { json: { results } } = await z.request(`${baseUrl}/catalog/${sf}/search?term=${term}`, {
+    params: {
+      limit: 20,
+      types: 'songs',
     }
+  });
 
-    if (isrc) {
-        let isrcMatch = results.songs.data.find(s => isrc === s.attributes.isrc);
-        if (isrcMatch) {
-            return {
-                ...transformSongResult(isrcMatch),
-                match: {
-                    type: 'isrc',
-                    confidence: 1.00,
-                },
-            };
-        }
-    }
+  if (!results.songs) {
+    throw new Error('No results');
+  }
 
-    return {
-        ...transformSongResult(results.songs.data[0]),
+  if (isrc) {
+    let isrcMatch = results.songs.data.find(s => isrc === s.attributes.isrc);
+    if (isrcMatch) {
+      return {
+        ...transformSongResult(isrcMatch),
         match: {
-            type: 'first item on search',
-            confidence: 0.8,
+          type: 'isrc',
+          confidence: 1.00,
         },
-    };
+      };
+    }
+  }
+
+  return {
+    ...transformSongResult(results.songs.data[0]),
+    match: {
+      type: 'first item on search',
+      confidence: 0.8,
+    },
+  };
 }
 
 const transformSongResult = result => ({
-    id: result.id,
-    artist: result.attributes.artistName,
-    name: result.attributes.name,
-    album: result.attributes.albumName,
-    trackNumber: result.attributes.trackNumber,
-    composer: result.attributes.composerName,
-    url: result.attributes.url,
-    duration: result.attributes.durationInMillis,
-    releaseDate: result.attributes.releaseDate,
-    isrc: result.attributes.isrc,
+  id: result.id,
+  artist: result.attributes.artistName,
+  name: result.attributes.name,
+  album: result.attributes.albumName,
+  trackNumber: result.attributes.trackNumber,
+  composer: result.attributes.composerName,
+  url: result.attributes.url,
+  duration: result.attributes.durationInMillis,
+  releaseDate: result.attributes.releaseDate,
+  isrc: result.attributes.isrc,
 });
 
 const baseUrl = 'https://api.music.apple.com/v1';
 
-module.exports = {token, findSong, baseUrl}
+module.exports = { token, findSong, baseUrl }

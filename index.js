@@ -1,7 +1,7 @@
 const authentication = require('./auth')
 const libraryCreate = require('./creates/library')
 const Playlist = require('./resources/playlist')
-const {token} = require('./music')
+const { token } = require('./music')
 
 const addAppleAuth = (request, z, bundle) => {
   request.headers.Authorization = `Bearer ${token()}`

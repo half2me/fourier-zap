@@ -2,7 +2,7 @@ const { baseUrl } = require('./music')
 
 const getStorefront = (z, bundle) => z.request(`${baseUrl}/me/storefront`);
 
-const getAccessToken = async (z, {cleanedRequest: {querystring: q}}) => ({
+const getAccessToken = async (z, { cleanedRequest: { querystring: q } }) => ({
   access_token: q.code,
   storefront: q.sf,
 });
@@ -21,7 +21,7 @@ module.exports = {
     },
     getAccessToken,
     autoRefresh: false,
-  },  
+  },
   test: getStorefront,
   connectionLabel: "Apple Music auth",
 };

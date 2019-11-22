@@ -1,5 +1,6 @@
 const { baseUrl } = require('../music')
 const _ = require('lodash');
+const sample = require('../samples/playlist')
 
 const mapPlaylist = p => ({
   id: p.id,
@@ -8,26 +9,21 @@ const mapPlaylist = p => ({
   dateAdded: p.attributes.dateAdded,
 });
 
-const getPlaylist = (z, {inputData: {id}}) => z
+const getPlaylist = (z, { inputData: { id } }) => z
   .request(`${baseUrl}/me/library/playlists/${id}`)
-  .then(({json: {data}}) => mapPlaylist(data[0]));
+  .then(({ json: { data } }) => mapPlaylist(data[0]));
 
 const listPlaylists = (z, bundle) => z
-  .request(`${baseUrl}/me/library/playlists`, {params: {limit: 100}})
-  .then(({json: {data}}) => _.sortBy(data.map(mapPlaylist), 'dateAdded', 'desc'));
+  .request(`${baseUrl}/me/library/playlists`, { params: { limit: 100 } })
+  .then(({ json: { data } }) => _.sortBy(data.map(mapPlaylist), 'dateAdded', 'desc'));
 
-const createPlaylist = (z, {inputData: {name, description}}) => z
-  .request(`${baseUrl}/me/library/playlists`, {method: 'POST', body: JSON.stringify({
-    attributes: {name, description}
-  })})
-  .then(({json: {data}}) => mapPlaylist(data[0])); // dateAdded will not be available here
-
-const sample = {
-  id: "p.eoGxB3vSJao3Km",
-  name: "My amazing playlist",
-  description: "This playlists holds my favourite tracks",
-  dateAdded: "2019-09-01T19:42:34Z",
-};
+const createPlaylist = (z, { inputData: { name, description } }) => z
+  .request(`${baseUrl}/me/library/playlists`, {
+    method: 'POST', body: JSON.stringify({
+      attributes: { name, description }
+    })
+  })
+  .then(({ json: { data } }) => mapPlaylist(data[0])); // dateAdded will not be available here
 
 module.exports = {
   key: 'playlist',
