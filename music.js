@@ -69,4 +69,4 @@ const transformSongResult = result => ({
 
 const baseUrl = 'https://api.music.apple.com/v1';
 
-module.exports = { token, findTrack, baseUrl }
+module.exports = { token, findTrack, baseUrl, transformSongResult }
