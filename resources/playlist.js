@@ -49,7 +49,7 @@ module.exports = {
     },
     operation: {
       perform: listPlaylists,
-      sample: [sample]
+      sample,
     },
   },
   create: {
