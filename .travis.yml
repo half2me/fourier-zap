@@ -3,11 +3,11 @@ node_js:
   - 8.10.0
 before_script:
   - npm install -g zapier-platform-cli
-script: 'zapier test'
+script: 'zapier test --debug'
 after_success:
   - >
     test $TRAVIS_BRANCH = "master" &&
     echo "{\"deployKey\": \"$ZAPIER_DEPLOY_KEY\"}" > ~/.zapierrc &&
-    zapier push
+    zapier push --debug
 notifications:
   email: false
