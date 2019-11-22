@@ -45,7 +45,7 @@ module.exports = {
   list: {
     display: {
       label: 'New Playlist',
-      description: 'Trigger when a new playlist is added.'
+      description: 'Triggers when a new playlist is added.'
     },
     operation: {
       perform: listPlaylists,
