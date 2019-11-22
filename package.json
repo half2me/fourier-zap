@@ -1,11 +1,11 @@
 {
-  "name": "zapier-platform-example-app-minimal",
-  "version": "1.0.0",
-  "description": "An example app for the Zapier platform.",
-  "repository": "zapier/zapier-platform-example-app-minimal",
-  "homepage": "https://zapier.com/",
-  "author": "Bryan Helmig <bryan@zapier.com>",
-  "license": "BSD-3-Clause",
+  "name": "fourier",
+  "version": "2.0.0",
+  "description": "Fourier Apple Music Integration",
+  "repository": "",
+  "homepage": "https://fourieraudio.co.uk/",
+  "author": "Benjamin Tamasi <halftome@gmail.com>",
+  "license": "Proprietary",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive"

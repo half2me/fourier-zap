@@ -18,9 +18,9 @@ const tokenOptions = {
 
 const token = () => jwt.sign({}, key, tokenOptions)
 
-const findSong = async (z, song, artist, isrc, sf) => {
+const findTrack = async (z, track, artist, isrc, sf) => {
   let artistTerm = artist.replace(/,/g, '+')
-  let term = `${artistTerm}+${song}`.replace(/ /g, '+')
+  let term = `${artistTerm}+${track}`.replace(/ /g, '+')
   const { json: { results } } = await z.request(`${baseUrl}/catalog/${sf}/search?term=${term}`, {
     params: {
       limit: 20,
@@ -69,4 +69,4 @@ const transformSongResult = result => ({
 
 const baseUrl = 'https://api.music.apple.com/v1';
 
-module.exports = { token, findSong, baseUrl }
+module.exports = { token, findTrack, baseUrl }
