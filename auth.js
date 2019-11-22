@@ -1,4 +1,4 @@
-const { baseUrl } = require('../music')
+const { baseUrl } = require('./music')
 
 const getStorefront = (z, bundle) => z.request(`${baseUrl}/me/storefront`);
 
