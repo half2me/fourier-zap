@@ -20,7 +20,7 @@ const handleHTTPError = (response) => {
 const App = {
   // This is just shorthand to reference the installed dependencies you have. Zapier will
   // need to know these before we can upload
-  version: require('./package.json').version,
+  version: require('../package.json').version,
   platformVersion: require('zapier-platform-core').version,
   authentication,
 
