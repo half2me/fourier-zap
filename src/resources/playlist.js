@@ -1,11 +1,11 @@
-const { baseUrl } = require('../music')
+const { baseUrl } = require('../music');
 const _ = require('lodash');
-const sample = require('../samples/playlist')
+const sample = require('../samples/playlist');
 
-const mapPlaylist = p => ({
+const mapPlaylist = (p) => ({
   id: p.id,
   name: p.attributes.name,
-  description: p.attributes.description ? p.attributes.description.standard : null, // TODO: use conditional chaining with babel
+  description: p.attributes.description?.standard, // TODO: use conditional chaining with babel
   dateAdded: p.attributes.dateAdded,
 });
 
@@ -13,15 +13,15 @@ const getPlaylist = (z, { inputData: { id } }) => z
   .request(`${baseUrl}/me/library/playlists/${id}`)
   .then(({ json: { data } }) => mapPlaylist(data[0]));
 
-const listPlaylists = (z, bundle) => z
+const listPlaylists = (z) => z
   .request(`${baseUrl}/me/library/playlists`, { params: { limit: 100 } })
   .then(({ json: { data } }) => _.sortBy(data.map(mapPlaylist), 'dateAdded', 'desc'));
 
 const createPlaylist = (z, { inputData: { name, description } }) => z
   .request(`${baseUrl}/me/library/playlists`, {
     method: 'POST', body: JSON.stringify({
-      attributes: { name, description }
-    })
+      attributes: { name, description },
+    }),
   })
   .then(({ json: { data } }) => mapPlaylist(data[0])); // dateAdded will not be available here
 
@@ -31,18 +31,18 @@ module.exports = {
   get: {
     display: {
       label: 'Get Playlist',
-      description: 'Gets a playlist.'
+      description: 'Gets a playlist.',
     },
     operation: {
       inputFields: [{ key: 'id', required: true }],
       perform: getPlaylist,
       sample,
-    }
+    },
   },
   list: {
     display: {
       label: 'New Playlist',
-      description: 'Triggers when a new playlist is added.'
+      description: 'Triggers when a new playlist is added.',
     },
     operation: {
       perform: listPlaylists,
@@ -52,7 +52,7 @@ module.exports = {
   create: {
     display: {
       label: 'Create Playlist',
-      description: 'Creates a new playlist.'
+      description: 'Creates a new playlist.',
     },
     operation: {
       inputFields: [
@@ -61,7 +61,7 @@ module.exports = {
           required: true,
           type: 'string',
           label: 'Name',
-          helpText: 'Name of the playlist'
+          helpText: 'Name of the playlist',
         },
         {
           key: 'description',
@@ -75,8 +75,8 @@ module.exports = {
       sample: {
         ...sample,
         dateAdded: undefined, // This field is not returned on create
-      }
-    }
+      },
+    },
   },
   sample,
   outputFields: [
@@ -84,5 +84,5 @@ module.exports = {
     { key: 'name', label: 'Name' },
     { key: 'description', label: 'Description' },
     { key: 'dateAdded', label: 'Date Added' },
-  ]
+  ],
 };
