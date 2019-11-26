@@ -1,0 +1,11 @@
+---
+parser: babel-eslint
+
+plugins:
+  - "@zapier/zapier"
+extends:
+  - "plugin:@zapier/zapier/base"
+
+env:
+  mocha: true
+  node: true
