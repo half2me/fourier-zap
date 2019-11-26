@@ -5,7 +5,7 @@ const sample = require('../samples/playlist');
 const mapPlaylist = (p) => ({
   id: p.id,
   name: p.attributes.name,
-  description: p.attributes.description ? p.attributes.description.standard : null, // TODO: use conditional chaining with babel
+  description: p.attributes.description?.standard, // TODO: use conditional chaining with babel
   dateAdded: p.attributes.dateAdded,
 });
 
