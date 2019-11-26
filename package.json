@@ -11,9 +11,9 @@
     "test": "mocha --recursive src/test",
     "lint": "eslint --fix src",
     "build": "babel src -d lib",
-    "zapier-test": "zapier test",
-    "zapier-build": "",
-    "push": "zapier push"
+    "zapier-test": "zapier test --debug",
+    "zapier-build": "zapier build --debug",
+    "push": "zapier push --debug"
   },
   "engines": {
     "node": ">=10.16.3",
