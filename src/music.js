@@ -70,4 +70,4 @@ const findSong = async (z, song, artist, isrc, sf) => {
 };
 
 
-module.exports = { token, findSong, baseUrl };
+module.exports = { token, findSong, baseUrl, transformSongResult };
