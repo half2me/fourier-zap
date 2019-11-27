@@ -35,7 +35,9 @@ const token = () => jwt.sign({}, key, tokenOptions);
 
 const findSong = async (z, song, artist, isrc, sf) => {
   const artistTerm = artist.replace(/,/g, '+');
-  const term = `${artistTerm}+${song}`.replace(/ /g, '+');
+  const term = `${artistTerm}+${song}`
+    .replace(/ /g, '+')
+    .replace(/&/g, '');
   const { json: { results } } = await z.request(`${baseUrl}/catalog/${sf}/search?term=${term}`, {
     params: {
       limit: 20,
