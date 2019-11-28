@@ -1,12 +1,12 @@
 const { baseUrl } = require('../music');
-const sample = require('../samples/playlistTrack');
+const sample = require('../samples/track');
 const { transformSongResult } = require('../music');
 
 const getPlaylistTrack = (z, { inputData: { id } }) => z
   .request(`${baseUrl}/me/library/songs/${id}`)
   .then(({ json: { data } }) => transformSongResult(data[0]));
 
-const listPlaylistTracks = async (z, { inputData: { playlistId: id } }) => {
+const listPlaylistTracks = async (z, { inputData: { playlist: { id } } }) => {
   const reqOpt = {
     url: `${baseUrl}/me/library/playlists/${id}/tracks`,
     params: {
@@ -27,65 +27,36 @@ const listPlaylistTracks = async (z, { inputData: { playlistId: id } }) => {
   return data.map(transformSongResult).reverse();
 };
 
-const createPlaylist = (z, { inputData: { name, description } }) => z
-  .request(`${baseUrl}/me/library/playlists`, {
-    method: 'POST', body: JSON.stringify({
-      attributes: { name, description },
-    }),
-  })
-  .then(({ json: { data } }) => mapPlaylist(data[0])); // dateAdded will not be available here
-
 module.exports = {
-  key: 'playlist',
-  noun: 'Playlist',
+  key: 'playlistTrack',
+  noun: 'Track',
   get: {
     display: {
-      label: 'Get Playlist',
-      description: 'Gets a playlist.',
+      label: 'Get Playlist Track',
+      description: 'Gets a track from a playlist.',
     },
     operation: {
       inputFields: [{ key: 'id', required: true }],
-      perform: getPlaylist,
+      perform: getPlaylistTrack,
       sample,
     },
   },
   list: {
     display: {
-      label: 'New Playlist',
-      description: 'Triggers when a new playlist is added.',
-    },
-    operation: {
-      perform: listPlaylists,
-      sample,
-    },
-  },
-  create: {
-    display: {
-      label: 'Create Playlist',
-      description: 'Creates a new playlist.',
+      label: 'New Track Added to Playlist',
+      description: 'Triggers when a new track is added to one of your playlists.',
     },
     operation: {
       inputFields: [
         {
-          key: 'name',
+          key: 'playlist',
           required: true,
-          type: 'string',
-          label: 'Name',
-          helpText: 'Name of the playlist',
-        },
-        {
-          key: 'description',
-          required: false,
-          type: 'text',
-          label: 'Description',
-          helpText: 'Playlist description which will be shown in the playlist details',
+          label: 'Playlist',
+          dynamic: 'project.id.name',
         },
       ],
-      perform: createPlaylist,
-      sample: {
-        ...sample,
-        dateAdded: undefined, // This field is not returned on create
-      },
+      perform: listPlaylistTracks,
+      sample,
     },
   },
   sample,

@@ -4,6 +4,7 @@ node_js:
 before_script:
   - npm install -g zapier-platform-cli
 script:
+  - npm run lint
   - npm run build
   - npm run zapier-test
 after_success:
