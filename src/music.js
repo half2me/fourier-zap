@@ -49,7 +49,7 @@ const findSong = async (z, song, artist, isrc, sf) => {
     // no results for search term
     if (isrc) {
       // we have an isrc, so we can try to search directly by isrc code
-      const r = await z.request(`${baseUrl}/catalog/${sf}/songs`, { params: { filter: { isrc } } });
+      const r = await z.request(`${baseUrl}/catalog/${sf}/songs`, { params: { 'filter[isrc]': isrc } });
       const firstIsrcMatch = r.json.data[0];
       if (firstIsrcMatch) {
         return {
