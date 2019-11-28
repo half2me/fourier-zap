@@ -1,8 +1,15 @@
-const { findSong, baseUrl } = require('../music');
+const { findByIsrc, findBySearch, baseUrl } = require('../music');
 const sample = require('../samples/library');
 
 const addToLibrary = async (z, { inputData: { song, artist, isrc }, authData: { storefront: sf } }) => {
-  const result = await findSong(z, song, artist, isrc, sf);
+  let result;
+  if (isrc) {
+    result = await findByIsrc(z, isrc, sf);
+  } else if (song) {
+    result = await findBySearch(z, song, artist, sf);
+  } else {
+    throw new Error('Either ISRC or Song/Artist must be specified!');
+  }
   await z.request(`${baseUrl}/me/library?ids[songs]=${result.id}`, { method: 'POST' });
   return result;
 };
