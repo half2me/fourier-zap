@@ -52,7 +52,7 @@ module.exports = {
           key: 'playlist',
           required: true,
           label: 'Playlist',
-          dynamic: 'project.id.name',
+          dynamic: 'playlist.id.name',
         },
       ],
       perform: listPlaylistTracks,
