@@ -25,7 +25,7 @@ module.exports = {
 
   operation: {
     inputFields: [
-      { key: 'song', label: 'Song', type: 'string', required: true, helpText: 'Name of the song' },
+      { key: 'song', label: 'Song', type: 'string', required: false, helpText: 'Name of the song' },
       { key: 'artist', label: 'Artist', type: 'string', required: false, helpText: 'Name of the artist or artists separated by commas' },
       { key: 'isrc', label: 'ISRC', type: 'string', required: false, helpText: 'International Standard Recording Code. If you specify this ISRC code, the matching algorithm has the highest accuracy.' },
     ],
