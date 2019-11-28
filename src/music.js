@@ -46,7 +46,25 @@ const findSong = async (z, song, artist, isrc, sf) => {
   });
 
   if (!results.songs) {
-    throw new Error('No results');
+    // no results for search term
+    if (isrc) {
+      // we have an isrc, so we can try to search directly by isrc code
+      const r = await z.request(`${baseUrl}/catalog/${sf}/songs`, { params: { filter: { isrc } } });
+      const firstIsrcMatch = r.json.data[0];
+      if (firstIsrcMatch) {
+        return {
+          ...transformSongResult(firstIsrcMatch),
+          match: {
+            type: 'isrc without search',
+            confidence: 0.9,
+          },
+        };
+      } else {
+        throw new Error('No results');
+      }
+    } else {
+      throw new Error('No results');
+    }
   }
 
   if (isrc) {
