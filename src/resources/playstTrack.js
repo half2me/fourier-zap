@@ -1,6 +1,5 @@
-const { baseUrl } = require('../music');
+const { baseUrl, transformSongResult } = require('../music');
 const sample = require('../samples/track');
-const { transformSongResult } = require('../music');
 
 const getPlaylistTrack = (z, { inputData: { id } }) => z
   .request(`${baseUrl}/me/library/songs/${id}`)
