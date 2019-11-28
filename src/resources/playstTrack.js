@@ -6,7 +6,7 @@ const getPlaylistTrack = (z, { inputData: { id } }) => z
   .request(`${baseUrl}/me/library/songs/${id}`)
   .then(({ json: { data } }) => transformSongResult(data[0]));
 
-const listPlaylistTracks = async (z, { inputData: { playlist: { id } } }) => {
+const listPlaylistTracks = async (z, { inputData: { playlist_id: id } }) => {
   const reqOpt = {
     url: `${baseUrl}/me/library/playlists/${id}/tracks`,
     params: {
@@ -49,7 +49,7 @@ module.exports = {
     operation: {
       inputFields: [
         {
-          key: 'playlist',
+          key: 'playlist_id',
           required: true,
           label: 'Playlist',
           dynamic: 'playlist.id.name',
