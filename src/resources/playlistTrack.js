@@ -82,7 +82,7 @@ module.exports = {
           key: 'track_id',
           required: true,
           label: 'Track',
-          dynamic: 'track.id.name',
+          search: 'trackSearch.id',
         },
       ],
       perform: addTrackToPlaylist,
