@@ -1,6 +1,5 @@
-const { baseUrl } = require('../music');
+const { baseUrl, transformSongResult } = require('../music');
 const sample = require('../samples/track');
-const { transformSongResult } = require('../music');
 
 const getPlaylistTrack = (z, { inputData: { id } }) => z
   .request(`${baseUrl}/me/library/songs/${id}`)
@@ -26,6 +25,13 @@ const listPlaylistTracks = async (z, { inputData: { playlist_id: id } }) => {
 
   return data.map(transformSongResult).reverse();
 };
+
+const addTrackToPlaylist = (z, { inputData: { playlist_id, track_id: id }}) => z.request({
+  url: `${baseUrl}/me/library/playlists/${playlist_id}/tracks`,
+  method: 'POST',
+  json: true,
+  body: { data: [ { id, type: 'songs' } ] },
+});
 
 module.exports = {
   key: 'playlistTrack',
@@ -57,6 +63,31 @@ module.exports = {
       ],
       perform: listPlaylistTracks,
       sample,
+    },
+  },
+  create: {
+    display: {
+      label: 'Add a song to a playlist',
+      description: 'Adds a song to your playlist.',
+    },
+    operation: {
+      inputFields: [
+        {
+          key: 'playlist_id',
+          required: true,
+          label: 'Playlist',
+          dynamic: 'playlist.id.name',
+        },
+        {
+          key: 'track_id',
+          required: true,
+          label: 'Track',
+          search: 'trackSearch.id',
+          dynamic: 'track.id.name',
+        },
+      ],
+      perform: addTrackToPlaylist,
+      sample: undefined,
     },
   },
   sample,

@@ -3,6 +3,7 @@ node_js:
   - '10.16.3' # Lambda version as of 2019-11-21
 before_script:
   - npm install -g zapier-platform-cli
+  - 'echo "{\"deployKey\": \"$ZAPIER_DEPLOY_KEY\"}" > ~/.zapierrc'
 script:
   - npm run lint
   - npm run build
@@ -10,7 +11,6 @@ script:
 after_success:
   - >
     test $TRAVIS_BRANCH = "master" &&
-    echo "{\"deployKey\": \"$ZAPIER_DEPLOY_KEY\"}" > ~/.zapierrc &&
     npm run push
 notifications:
   email: false
