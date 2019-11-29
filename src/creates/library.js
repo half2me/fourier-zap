@@ -23,6 +23,7 @@ module.exports = {
         required: true,
         label: 'Track',
         dynamic: 'track.id.name',
+        search: 'trackSearch.id',
         helpText: 'The track to add',
       },
     ],
