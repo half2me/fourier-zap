@@ -1,7 +1,8 @@
 const authentication = require('./auth');
 const libraryCreate = require('./creates/library');
 const Playlist = require('./resources/playlist');
-const PlaylistTrack = require('./resources/playstTrack');
+const PlaylistTrack = require('./resources/playlistTrack');
+const Track = require('./resources/track');
 const { token } = require('./music');
 
 const addAppleAuth = (request, z, bundle) => {
@@ -38,6 +39,7 @@ const App = {
   resources: {
     [Playlist.key]: Playlist,
     [PlaylistTrack.key]: PlaylistTrack,
+    [Track.key]: Track,
   },
 
   // If you want your trigger to show up, you better include it here!

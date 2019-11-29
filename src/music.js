@@ -43,7 +43,7 @@ const findByIsrc = (z, isrc, sf) => z.request({
       match: { type: 'isrc', confidence: 1.0 },
     };
   } else {
-    throw new Error('No results');
+    return null;
   }
 });
 
@@ -65,7 +65,7 @@ const findBySearch = (z, song, artist, sf) => {
         },
       };
     } else {
-      throw new Error('No results');
+      return null;
     }
   });
 };

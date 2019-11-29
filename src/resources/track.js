@@ -5,14 +5,17 @@ const getTrack = (z, { inputData: { id }, authData: { storefront: sf } }) => z
   .request(`${baseUrl}/catalog/${sf}/songs/${id}`)
   .then(({ json: { data } }) => transformSongResult(data[0]));
 
-const searchForTrack = (z, { inputData: { song, artist, isrc }, authData: { storefront: sf } }) => {
+const searchForTrack = async (z, { inputData: { song, artist, isrc }, authData: { storefront: sf } }) => {
+  let result;
   if (isrc) {
-    return findByIsrc(z, isrc, sf);
+    result = await findByIsrc(z, isrc, sf);
   } else if (song) {
-    return findBySearch(z, song, artist, sf);
+    result = await findBySearch(z, song, artist, sf);
   } else {
     throw new Error('Either ISRC or Song/Artist must be specified!');
   }
+
+  return result ? [ result ] : [];
 };
 
 module.exports = {
@@ -47,8 +50,14 @@ module.exports = {
   sample,
   outputFields: [
     { key: 'id', label: 'ID' },
-    { key: 'name', label: 'Name' },
     { key: 'artist', label: 'Artist' },
+    { key: 'name', label: 'Name' },
+    { key: 'album', label: 'Album' },
+    { key: 'trackNumber', label: 'Track Number' },
+    { key: 'composer', label: 'Composer' },
+    { key: 'url', label: 'Url' },
+    { key: 'duration', label: 'Duration' },
+    { key: 'releaseDate', label: 'Release Date' },
     { key: 'isrc', label: 'ISRC' },
   ],
 };
