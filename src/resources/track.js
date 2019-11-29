@@ -32,6 +32,17 @@ module.exports = {
       sample,
     },
   },
+  list: {
+    display: {
+      label: 'New Track Added to Library (Not available)',
+      description: 'Unfortunately this is not available due to Apple Music\'s badly designed API',
+    },
+    operation: {
+      inputFields: [],
+      perform: async () => ([]), // dummy trigger creating an empty list
+      sample,
+    },
+  },
   search: {
     display: {
       label: 'Find Track',
