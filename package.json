@@ -29,7 +29,7 @@
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.7",
     "@babel/plugin-proposal-optional-chaining": "^7.7.5",
-    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
     "@zapier/eslint-plugin-zapier": "^9.1.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
