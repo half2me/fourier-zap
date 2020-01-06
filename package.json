@@ -33,7 +33,7 @@
     "@zapier/eslint-plugin-zapier": "^9.1.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.8.0",
-    "mocha": "^6.2.2",
+    "mocha": "^7.0.0",
     "should": "^13.2.0"
   },
   "private": true
