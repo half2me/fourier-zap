@@ -70,5 +70,15 @@ const findBySearch = (z, song, artist, sf) => {
   });
 };
 
+const findByIsrcOrSearch = (z, song, artist, isrc, sf) => {
+  if (isrc) {
+    return findByIsrc(z, isrc, sf);
+  } else if (song) {
+    return findBySearch(z, song, artist, sf);
+  } else {
+    throw new Error('Either ISRC or Song/Artist must be specified!');
+  }
+};
 
-module.exports = { token, findByIsrc, findBySearch, baseUrl, transformSongResult };
+
+module.exports = { token, findByIsrc, findBySearch, findByIsrcOrSearch, baseUrl, transformSongResult };

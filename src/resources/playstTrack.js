@@ -1,6 +1,6 @@
-const { baseUrl } = require('../music');
-const sample = require('../samples/track');
-const { transformSongResult } = require('../music');
+const { baseUrl, transformSongResult, findByIsrcOrSearch } = require('../music');
+const sampleTrack = require('../samples/track');
+const sampleLibraryTrack = require('../samples/library');
 
 const getPlaylistTrack = (z, { inputData: { id } }) => z
   .request(`${baseUrl}/me/library/songs/${id}`)
@@ -27,6 +27,17 @@ const listPlaylistTracks = async (z, { inputData: { playlist_id: id } }) => {
   return data.map(transformSongResult).reverse();
 };
 
+const addTrackToPlaylist = async (z, { inputData: { playlist_id, song, artist, isrc }, authData: { storefront: sf } }) => {
+  const result = await findByIsrcOrSearch(z, song, artist, isrc, sf);
+  await z.request({
+    url: `${baseUrl}/me/library/playlists/${playlist_id}/tracks`,
+    method: 'POST',
+    json: true,
+    body: { data: [ { id: result.id, type: 'songs' } ] },
+  });
+  return result;
+};
+
 module.exports = {
   key: 'playlistTrack',
   noun: 'Track',
@@ -38,7 +49,7 @@ module.exports = {
     operation: {
       inputFields: [{ key: 'id', required: true }],
       perform: getPlaylistTrack,
-      sample,
+      sampleTrack,
     },
   },
   list: {
@@ -56,10 +67,26 @@ module.exports = {
         },
       ],
       perform: listPlaylistTracks,
-      sample,
+      sampleTrack,
     },
   },
-  sample,
+  create: {
+    display: {
+      label: 'Add a song to a playlist',
+      description: 'Adds a song to your playlist.',
+    },
+    operation: {
+      inputFields: [
+        { key: 'playlist_id', required: true, label: 'Playlist', dynamic: 'playlist.id.name' },
+        { key: 'song', label: 'Song', type: 'string', required: false, helpText: 'Name of the song' },
+        { key: 'artist', label: 'Artist', type: 'string', required: false, helpText: 'Name of the artist or artists separated by commas' },
+        { key: 'isrc', label: 'ISRC', type: 'string', required: false, helpText: 'International Standard Recording Code. If you specify this ISRC code, the matching algorithm has the highest accuracy.' },
+      ],
+      perform: addTrackToPlaylist,
+      sample: sampleLibraryTrack,
+    },
+  },
+  sampleTrack,
   outputFields: [
     { key: 'id', label: 'ID' },
     { key: 'name', label: 'Name' },

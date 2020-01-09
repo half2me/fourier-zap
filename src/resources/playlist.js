@@ -18,10 +18,11 @@ const listPlaylists = (z) => z
   .then(({ json: { data } }) => _.sortBy(data.map(mapPlaylist), 'dateAdded', 'desc'));
 
 const createPlaylist = (z, { inputData: { name, description } }) => z
-  .request(`${baseUrl}/me/library/playlists`, {
-    method: 'POST', body: JSON.stringify({
-      attributes: { name, description },
-    }),
+  .request({
+    url: `${baseUrl}/me/library/playlists`,
+    method: 'POST',
+    json: true,
+    body: { attributes: { name, description } },
   })
   .then(({ json: { data } }) => mapPlaylist(data[0])); // dateAdded will not be available here
 
