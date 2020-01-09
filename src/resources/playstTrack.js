@@ -1,6 +1,6 @@
 const { baseUrl, transformSongResult, findByIsrcOrSearch } = require('../music');
-const sampleTrack = require('../samples/track');
-const sampleLibraryTrack = require('../samples/library');
+const sample = require('../samples/track');
+const sample2 = require('../samples/library');
 
 const getPlaylistTrack = (z, { inputData: { id } }) => z
   .request(`${baseUrl}/me/library/songs/${id}`)
@@ -49,7 +49,7 @@ module.exports = {
     operation: {
       inputFields: [{ key: 'id', required: true }],
       perform: getPlaylistTrack,
-      sampleTrack,
+      sample,
     },
   },
   list: {
@@ -67,7 +67,7 @@ module.exports = {
         },
       ],
       perform: listPlaylistTracks,
-      sampleTrack,
+      sample,
     },
   },
   create: {
@@ -83,10 +83,10 @@ module.exports = {
         { key: 'isrc', label: 'ISRC', type: 'string', required: false, helpText: 'International Standard Recording Code. If you specify this ISRC code, the matching algorithm has the highest accuracy.' },
       ],
       perform: addTrackToPlaylist,
-      sample: sampleLibraryTrack,
+      sample: sample2,
     },
   },
-  sampleTrack,
+  sample,
   outputFields: [
     { key: 'id', label: 'ID' },
     { key: 'name', label: 'Name' },
