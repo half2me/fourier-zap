@@ -35,7 +35,6 @@ const addTrackToPlaylist = async (z, { inputData: { playlist_id, song, artist, i
     json: true,
     body: { data: [ { id: result.id, type: 'songs' } ] },
   });
-  return result;
 };
 
 module.exports = {
@@ -83,7 +82,7 @@ module.exports = {
         { key: 'isrc', label: 'ISRC', type: 'string', required: false, helpText: 'International Standard Recording Code. If you specify this ISRC code, the matching algorithm has the highest accuracy.' },
       ],
       perform: addTrackToPlaylist,
-      sample: sample2,
+      sample: undefined,
     },
   },
   sample,
