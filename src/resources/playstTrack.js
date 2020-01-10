@@ -82,7 +82,7 @@ module.exports = {
         { key: 'isrc', label: 'ISRC', type: 'string', required: false, helpText: 'International Standard Recording Code. If you specify this ISRC code, the matching algorithm has the highest accuracy.' },
       ],
       perform: addTrackToPlaylist,
-      sample: {},
+      sample: undefined,
     },
   },
   sample,
