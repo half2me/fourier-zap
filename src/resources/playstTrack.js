@@ -1,5 +1,6 @@
 const { baseUrl, transformSongResult, findByIsrcOrSearch } = require('../music');
 const sample = require('../samples/track');
+const _ = require('lodash');
 
 const getPlaylistTrack = (z, { inputData: { id } }) => z
   .request(`${baseUrl}/me/library/songs/${id}`)
@@ -23,7 +24,7 @@ const listPlaylistTracks = async (z, { inputData: { playlist_id: id } }) => {
     meta = r.json.meta;
   }
 
-  return data.map(transformSongResult).reverse();
+  return _.uniqBy(data.map(transformSongResult), 'id').reverse();
 };
 
 const addTrackToPlaylist = async (z, { inputData: { playlist_id, song, artist, isrc }, authData: { storefront: sf } }) => {
