@@ -1,6 +1,5 @@
 const { baseUrl, transformSongResult, findByIsrcOrSearch } = require('../music');
 const sample = require('../samples/track');
-const sample2 = require('../samples/library');
 
 const getPlaylistTrack = (z, { inputData: { id } }) => z
   .request(`${baseUrl}/me/library/songs/${id}`)
