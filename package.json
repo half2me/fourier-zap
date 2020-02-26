@@ -31,7 +31,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@zapier/eslint-plugin-zapier": "^9.1.0",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "mocha": "^7.0.1",
     "should": "^13.2.3"
