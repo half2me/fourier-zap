@@ -2,7 +2,6 @@ const { findByIsrcOrSearch, baseUrl } = require('../music');
 const sample = require('../samples/library');
 
 const addToLibrary = async (z, { inputData: { song, artist, isrc }, authData: { storefront: sf } }) => {
-  z.console.log(sf);
   const result = await findByIsrcOrSearch(z, song, artist, isrc, sf);
   await z.request(`${baseUrl}/me/library?ids[songs]=${result.id}`, { method: 'POST' });
   return result;
