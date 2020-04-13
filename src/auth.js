@@ -23,5 +23,5 @@ module.exports = {
     autoRefresh: false,
   },
   test: getStorefront,
-  connectionLabel: 'Apple Music auth [{{bundle.inputData.storefront}}]',
+  connectionLabel: '{{bundle.inputData.storefront}}',
 };
