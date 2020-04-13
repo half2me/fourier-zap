@@ -1,6 +1,9 @@
 const { baseUrl } = require('./music');
 
-const getStorefront = (z) => z.request(`${baseUrl}/me/storefront`);
+const getStorefront = (z, bundle) => {
+  z.console.log(bundle)
+  return z.request(`${baseUrl}/me/storefront`)
+};
 
 const getAccessToken = async (_z, { cleanedRequest: { querystring: q } }) => ({
   access_token: q.code,
