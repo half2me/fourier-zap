@@ -73,8 +73,8 @@ const findByIsrcOrSearch = (z, song, artist, isrc, sf) => {
 
   if (isrc) {
     result = findByIsrc(z, isrc, sf);
-  } 
-  
+  }
+
   if (!result) {
     result = findBySearch(z, song, artist, sf);
   }
