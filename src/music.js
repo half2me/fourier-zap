@@ -68,18 +68,18 @@ const findBySearch = (z, song, artist, sf) => {
   });
 };
 
-const findByIsrcOrSearch = (z, song, artist, isrc, sf) => {
+const findByIsrcOrSearch = async (z, song, artist, isrc, sf) => {
   z.console.log(`Storefront is ${sf}.`);
   let result = null;
 
   if (isrc) {
     z.console.log(`Searching by ISRC: ${isrc}.`);
-    result = findByIsrc(z, isrc, sf);
+    result = await findByIsrc(z, isrc, sf);
   }
 
   if (!result) {
     z.console.log(`Searching by terms. Artist: ${artist} Song: ${song}.`);
-    result = findBySearch(z, song, artist, sf);
+    result = await findBySearch(z, song, artist, sf);
   }
 
   if (result) {
