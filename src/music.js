@@ -69,7 +69,7 @@ const findBySearch = (z, song, artist, sf) => {
 };
 
 const findByIsrcOrSearch = (z, song, artist, isrc, sf) => {
-  z.console.log(`Storefront is ${sf}.`)
+  z.console.log(`Storefront is ${sf}.`);
   let result = null;
 
   if (isrc) {
