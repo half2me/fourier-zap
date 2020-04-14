@@ -87,4 +87,4 @@ const findByIsrcOrSearch = (z, song, artist, isrc, sf) => {
 };
 
 
-module.exports = { token, findByIsrc, findBySearch, findByIsrcOrSearch, baseUrl, transformSongResult };
+module.exports = { token, findByIsrcOrSearch, baseUrl, transformSongResult };
