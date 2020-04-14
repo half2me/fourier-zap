@@ -72,17 +72,21 @@ const findByIsrcOrSearch = (z, song, artist, isrc, sf) => {
   let result = null;
 
   if (isrc) {
+    z.console.log("Searching by ISRC: " + isrc);
     result = findByIsrc(z, isrc, sf);
   }
 
   if (!result) {
+    z.console.log(`Searching by terms. Artist: ${artist} Song: ${song}`);
     result = findBySearch(z, song, artist, sf);
   }
 
   if (result) {
+    z.console.log("Search successfull, AMID: " + result.id);
     return result;
   }
 
+  z.console.log("Search found no results :(");
   throw new Error('No results');
 };
 
