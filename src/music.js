@@ -42,9 +42,8 @@ const findByIsrc = (z, isrc, sf) => z.request({
       ...transformSongResult(data[0]),
       match: { type: 'isrc', confidence: 1.0 },
     };
-  } else {
-    throw new Error('No results');
   }
+  return null;
 });
 
 const findBySearch = (z, song, artist, sf) => {
@@ -64,20 +63,27 @@ const findBySearch = (z, song, artist, sf) => {
           confidence: 0.8,
         },
       };
-    } else {
-      throw new Error('No results');
     }
+    return null;
   });
 };
 
 const findByIsrcOrSearch = (z, song, artist, isrc, sf) => {
+  let result = null;
+
   if (isrc) {
-    return findByIsrc(z, isrc, sf);
-  } else if (song) {
-    return findBySearch(z, song, artist, sf);
-  } else {
-    throw new Error('Either ISRC or Song/Artist must be specified!');
+    result = findByIsrc(z, isrc, sf);
+  } 
+  
+  if (!result) {
+    result = findBySearch(z, song, artist, sf);
   }
+
+  if (result) {
+    return result;
+  }
+
+  throw new Error('No results');
 };
 
 
