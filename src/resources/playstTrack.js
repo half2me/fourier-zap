@@ -72,7 +72,7 @@ module.exports = {
   },
   create: {
     display: {
-      label: 'Add a song to a playlist',
+      label: 'Add a Song to a Playlist',
       description: 'Adds a song to your playlist.',
     },
     operation: {

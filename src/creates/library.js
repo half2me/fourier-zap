@@ -12,7 +12,7 @@ module.exports = {
   noun: 'Library',
 
   display: {
-    label: 'Add song to library',
+    label: 'Add Song to Library',
     description: 'Adds a song to your Apple Music library',
   },
 
