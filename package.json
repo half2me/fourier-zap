@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
-    "@babel/core": "^7.10.0",
+    "@babel/core": "^7.10.1",
     "@babel/plugin-proposal-optional-chaining": "^7.10.1",
     "@babel/preset-env": "^7.9.6",
     "@zapier/eslint-plugin-zapier": "^9.1.0",
