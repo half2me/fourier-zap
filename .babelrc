@@ -1,6 +1,4 @@
 {
-  "plugins": [
-    "@babel/plugin-proposal-optional-chaining",
-  ],
+  "plugins": ["@babel/plugin-proposal-optional-chaining"],
   "presets": ["@zapier/babel-preset-zapier"]
 }
