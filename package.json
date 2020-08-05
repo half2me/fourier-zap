@@ -33,7 +33,7 @@
     "@zapier/babel-preset-zapier": "^6.3.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.6.0",
-    "mocha": "^8.1.0",
+    "mocha": "^8.1.1",
     "should": "^13.2.3"
   },
   "private": true
