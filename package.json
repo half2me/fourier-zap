@@ -32,7 +32,7 @@
     "@babel/preset-env": "^7.11.0",
     "@zapier/babel-preset-zapier": "^6.3.1",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.6.0",
+    "eslint": "^7.7.0",
     "mocha": "^8.1.1",
     "should": "^13.2.3"
   },
