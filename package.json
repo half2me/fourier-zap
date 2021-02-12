@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
+    "@babel/core": "^7.12.16",
     "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@babel/preset-env": "^7.12.11",
     "@zapier/babel-preset-zapier": "^6.3.1",
