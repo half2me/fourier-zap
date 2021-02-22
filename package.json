@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "zapier-platform-core": "10.1.2"
   },
   "devDependencies": {
